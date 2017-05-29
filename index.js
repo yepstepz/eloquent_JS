@@ -1,15 +1,19 @@
 var fs = require('fs');
-function getPaths(name){
-    fs.readdirSync('./src/').forEach( function(name) {
-            console.log(name);
-            if ( !!~name.indexOf('.js') ){
-                fs.writeFileSync('./module.js', 'import * from ".\\src\\' + name);
-                return true;
+const path = require('path');
+/**
+ * Clear module.js before adding imports
+ */
+fs.truncateSync('./module.js', 0);
+
+(function getPaths(url) {
+    fs.readdirSync(url).forEach(function (name) {
+            if (!!~name.indexOf('.js')) {
+                fs.appendFileSync('./module.js', 'import * from "' + url + path.sep + name + '";\n');
+                return;
             }
-            getPaths(name);
+            getPaths(url + path.sep + name);
         }
     )
-}
-(function(){
-    getPaths('/');
-})();
+})('.' + path.sep + 'src');
+
+import './modules.js';
