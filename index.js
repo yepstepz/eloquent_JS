@@ -8,7 +8,7 @@ fs.truncateSync('./module.js', 0);
 (function getPaths(url) {
     fs.readdirSync(url).forEach(function (name) {
             if (!!~name.indexOf('.js')) {
-                fs.appendFileSync('./module.js', 'import * from "' + url + path.sep + name + '";\n');
+                fs.appendFileSync('./module.js', 'import * as '+name.split('.')[0] +' from "' + url + path.sep + name + '";\n');
                 return;
             }
             getPaths(url + path.sep + name);
@@ -16,4 +16,3 @@ fs.truncateSync('./module.js', 0);
     )
 })('.' + path.sep + 'src');
 
-import './modules.js';
