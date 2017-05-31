@@ -1,4 +1,5 @@
 const path = require('path');
+
 const sassLoaders = [
     'css-loader',
     'sass-loader'
@@ -28,7 +29,10 @@ module.exports = {
     //     new ExtractTextPlugin("styles.css"),
     // ],
     resolve: {
-        extensions: ['.js', '.jsx', '.css']
+        extensions: ['.js', '.jsx', '.css'],
+        alias: {
+                "request$": "xhr"
+        }
     },
     devServer: { inline: true },
     node: {fs: "empty"}
