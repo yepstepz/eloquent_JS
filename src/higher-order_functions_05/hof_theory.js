@@ -66,9 +66,37 @@ function map(array, transform){
     }
     return mapped;
 }
-console.log(map(affilter, function(item){
+map(affilter, function(item){
     return item.name;
-}));
-console.log(map(afdied, function(item){
+});
+map(afdied, function(item){
     return item.name;
+});
+function reduce(array, combine, start){
+    let current = start;
+    for (let i = 0; i < array.length; i++){
+       current = combine(current, array[i]);
+    }
+    return current;
+}
+reduce([1,2,3], function(a, b){
+    return a + b;
+}, 0);
+console.log(afj.reduce(function(min, cur){
+    return min.born < cur.born ? min : cur;
 }));
+function average(array){
+    function plus(a, b){ return a + b };
+    return array.reduce(plus) / array.length;
+}
+function age(p){
+    return p.died - p.born;
+}
+function male(p){
+    return p.sex == 'm';
+}
+function female(p){
+    return p.sex == 'f';
+}
+console.log(average(afj.filter(male).map(age)));
+console.log(average(afj.filter(female).map(age)));
