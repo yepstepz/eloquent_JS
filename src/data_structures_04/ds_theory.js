@@ -55,6 +55,6 @@ for (let post in fulljournal) {
 let phies = allPhi(fulljournal, allDeals(fulljournal));
 for (let phi in phies) {
     if (phies[phi] > 0.1 || phies[phi] < -0.1) {
-        console.log(phi + ':' + phies[phi]);
+        //console.log(phi + ':' + phies[phi]);
     }
 }
