@@ -82,9 +82,9 @@ function reduce(array, combine, start){
 reduce([1,2,3], function(a, b){
     return a + b;
 }, 0);
-console.log(afj.reduce(function(min, cur){
+afj.reduce(function(min, cur){
     return min.born < cur.born ? min : cur;
-}));
+});
 function average(array){
     function plus(a, b){ return a + b };
     return array.reduce(plus) / array.length;
@@ -98,5 +98,54 @@ function male(p){
 function female(p){
     return p.sex == 'f';
 }
-console.log(average(afj.filter(male).map(age)));
-console.log(average(afj.filter(female).map(age)));
+average(afj.filter(male).map(age));
+average(afj.filter(female).map(age));
+let byName = {};
+afj.forEach(function(person){
+    byName[person.name] = person;
+})
+function reduceFamilyTree(person, f, defaultValue){
+    function valueFor(person){
+        if (person == null){
+            return defaultValue;
+        } else {
+            return f(person, valueFor(byName[person.mother]),
+                             valueFor(byName[person.father]))
+        }
+    }
+    return valueFor(person);
+}
+let ph = byName["Philibert Haverbeke"];
+function sharedDNA(person, mother, father){
+    if (person.name == "Pauwels van Haverbeke")
+        return 1
+    else
+        return (mother + father) / 2;
+}
+reduceFamilyTree(ph, sharedDNA, 0)/4;
+function countAncestors(person, test) {
+    function combine(person, fromMother, fromFather) {
+        var thisOneCounts = test(person);
+        return fromMother + fromFather + (thisOneCounts ? 1 : 0);
+    }
+    return reduceFamilyTree(person, combine, 0);
+}
+function longLivingPercentage(person){
+    var all = countAncestors(person, function(person) {
+        return true;
+    });
+    var longLiving = countAncestors(person, function(person) {
+        return (person.died - person.born) >= 70;
+    });
+    return longLiving / all;
+}
+longLivingPercentage(byName["Emile Haverbeke"]);
+let old = map(afdied, function(item){
+    return item.name;
+});
+byName['Emile Haverbeke'];
+function isInSet(set, person){
+    return set.indexOf(person.name) > -1;
+}
+//console.log(afj.filter( (person) => isInSet(old, person) ));
+afj.filter( isInSet.bind(null, old) ) ;
