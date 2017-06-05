@@ -9,6 +9,7 @@ import * as functions_02 from ".\\src\\functions_03\\functions_02.js";
 import * as functions_03 from ".\\src\\functions_03\\functions_03.js";
 import * as functions_theory from ".\\src\\functions_03\\functions_theory.js";
 import * as hof_01 from ".\\src\\higher-order_functions_05\\hof_01.js";
+import * as hof_02 from ".\\src\\higher-order_functions_05\\hof_02.js";
 import * as hof_data from ".\\src\\higher-order_functions_05\\hof_data.js";
 import * as hof_theory from ".\\src\\higher-order_functions_05\\hof_theory.js";
 import * as structure_01 from ".\\src\\program_structure_02\\structure_01.js";
