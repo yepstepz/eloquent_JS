@@ -11,16 +11,16 @@ afj.forEach( (item) => byName[item.name] = item );
 function motherAge(afj){
     let ages = [];
     function lifeYear( person ){
-        if (person == undefined){
-            return 0;
-        }
-        return person.died - person.born;
+        return person.born;
     }
     afj.forEach( (item) => {
+        if (byName[item.mother] == undefined){
+            return;
+        }
        let averageAge = lifeYear( byName[item.mother] ) - lifeYear(item);
        averageAge = (averageAge > 0) ? averageAge : averageAge * -1;
        ages.push( averageAge );
     })
     return average(ages);
 }
-console.log(motherAge(afj));
+motherAge(afj);
